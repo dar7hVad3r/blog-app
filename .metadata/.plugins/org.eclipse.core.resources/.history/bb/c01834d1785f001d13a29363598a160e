@@ -1,0 +1,10 @@
+package com.blog.utils;
+
+import com.blog.entities.User;
+import com.blog.payload.UserDto;
+
+
+public interface UserMapper {
+	public User toEntity(UserDto dto);
+	public UserDto toDto(User user);
+}

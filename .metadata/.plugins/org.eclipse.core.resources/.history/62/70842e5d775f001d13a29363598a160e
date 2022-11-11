@@ -1,0 +1,67 @@
+package com.blog.payload;
+
+import java.util.Objects;
+
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+public class UserDto {
+	private Integer id;
+	private String name;
+	private String emai;
+	private String password;
+	private String about;
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getEmai() {
+		return emai;
+	}
+	public void setEmai(String emai) {
+		this.emai = emai;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	public String getAbout() {
+		return about;
+	}
+	public void setAbout(String about) {
+		this.about = about;
+	}
+	@Override
+	public int hashCode() {
+		return Objects.hash(about, emai, id, name, password);
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		UserDto other = (UserDto) obj;
+		return Objects.equals(about, other.about) && Objects.equals(emai, other.emai) && Objects.equals(id, other.id)
+				&& Objects.equals(name, other.name) && Objects.equals(password, other.password);
+	}
+	@Override
+	public String toString() {
+		return "UserDto [id=" + id + ", name=" + name + ", emai=" + emai + ", password=" + password + ", about=" + about
+				+ "]";
+	}
+	
+}

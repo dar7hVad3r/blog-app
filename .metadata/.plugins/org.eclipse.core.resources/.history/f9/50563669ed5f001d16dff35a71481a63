@@ -1,0 +1,51 @@
+package com.blog.services.implementation;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.blog.entities.User;
+import com.blog.payload.UserDto;
+import com.blog.repositories.UserRepository;
+import com.blog.services.UserService;
+import com.blog.utils.UserMapper;
+
+public class UserServiceImpl implements UserService {
+	
+	@Autowired
+	private UserRepository userRepository;
+
+	@Autowired
+	private UserMapper mapper;
+	
+	@Override
+	public UserDto createUser(UserDto user) {
+		return mapper.toDto(userRepository.save(mapper.toEntity(user)));
+		
+	}
+
+	@Override
+	public UserDto updateUser(UserDto user, Integer id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public UserDto getUser(Integer id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<UserDto> getAllUsers() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void deleteUser(Integer id) {
+		// TODO Auto-generated method stub
+
+	}
+
+}
