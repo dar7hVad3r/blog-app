@@ -66,4 +66,11 @@ public class CategoryServiceImpl implements CategoryService {
                 .stream().map(mapper::entityToDto)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public List<CategoryDto> dumpAll(List<CategoryDto> cats) {
+        return categoryRepository.saveAll(cats.stream().map(mapper::dtoToEntity).toList())
+                .stream().map(mapper::entityToDto)
+                .toList();
+    }
 }

@@ -1,6 +1,8 @@
 package com.blog.entities;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -8,7 +10,7 @@ import java.util.Objects;
 public class Category {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
     @Column(name = "title", length = 30, nullable = false)
@@ -16,6 +18,9 @@ public class Category {
 
     @Column(name = "description", length = 100, nullable = true)
     private String description;
+
+    @OneToMany(mappedBy = "category", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Post> posts = new ArrayList<>();
 
     public Integer getId() {
         return id;
@@ -52,5 +57,15 @@ public class Category {
     @Override
     public int hashCode() {
         return Objects.hash(id, title, description);
+    }
+
+    @Override
+    public String toString() {
+        return "Category{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", posts=" + posts +
+                '}';
     }
 }

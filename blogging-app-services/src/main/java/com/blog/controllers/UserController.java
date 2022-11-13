@@ -19,6 +19,14 @@ public class UserController {
 	@Autowired
 	private UserService service;
 
+	// ***************************************************************** DUMP
+	@PostMapping("/dump")
+	public ResponseEntity<List<UserDto>> userDump(@Valid @RequestBody List<UserDto> dtos) {
+		var dump = service.dump(dtos);
+		return ResponseEntity.ok(dump);
+	}
+	// *****************************************************************
+
 	//POST create user
 	@PostMapping
 	public ResponseEntity<UserDto> addUser(@Valid @RequestBody UserDto dto) {

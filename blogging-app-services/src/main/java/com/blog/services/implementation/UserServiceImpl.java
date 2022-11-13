@@ -54,4 +54,10 @@ public class UserServiceImpl implements UserService {
 		userRepository.delete(user);
 	}
 
+	@Override
+	public List<UserDto> dump(List<UserDto> dtos) {
+		var dump = userRepository.saveAll(dtos.stream().map(mapper::toEntity).toList());
+		return dump.stream().map(mapper::toDto).toList();
+	}
+
 }

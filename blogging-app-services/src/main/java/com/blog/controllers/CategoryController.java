@@ -18,6 +18,17 @@ public class CategoryController {
     @Autowired
     CategoryService service;
 
+    // ***************************************************************** DUMP
+
+    @PostMapping("/dump")
+    public ResponseEntity<List<CategoryDto>> dumpCategories(@RequestBody List<CategoryDto> cats) {
+        var categories = service.dumpAll(cats);
+        return ResponseEntity.ok(categories);
+    }
+
+    // *****************************************************************
+
+
     @GetMapping
     public ResponseEntity<List<CategoryDto>> getAllCategories() {
         var categories = service.getAllCategories();

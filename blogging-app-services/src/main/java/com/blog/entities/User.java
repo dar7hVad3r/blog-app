@@ -1,9 +1,8 @@
 package com.blog.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity
@@ -16,6 +15,9 @@ public class User {
 	private String email;
 	private String password;
 	private String about;
+
+	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<Post> posts = new ArrayList<>();
 	public Integer getId() {
 		return id;
 	}
@@ -46,6 +48,16 @@ public class User {
 	public void setAbout(String about) {
 		this.about = about;
 	}
-	
-	
+
+	@Override
+	public String toString() {
+		return "User{" +
+				"id=" + id +
+				", name='" + name + '\'' +
+				", email='" + email + '\'' +
+				", password='" + password + '\'' +
+				", about='" + about + '\'' +
+				", posts=" + posts +
+				'}';
+	}
 }
