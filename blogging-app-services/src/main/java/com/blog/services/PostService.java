@@ -1,6 +1,7 @@
 package com.blog.services;
 
 import com.blog.payload.CategoryDto;
+import com.blog.payload.PaginatedPostResponse;
 import com.blog.payload.PostDto;
 import com.blog.payload.UserDto;
 
@@ -10,6 +11,8 @@ public interface PostService {
 
     PostDto createPost(PostDto postDto, Integer categoryId, Integer userId);
     List<PostDto> getAllPosts();
+    PaginatedPostResponse getAllPosts(Integer pageNumber, Integer count);
+
     List<PostDto> getAllPostsByUser(Integer userId);
     List<PostDto> getAllPostsByCategory(Integer categoryId);
     PostDto getPostById(Integer id);

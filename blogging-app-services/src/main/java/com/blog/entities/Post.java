@@ -3,6 +3,7 @@ package com.blog.entities;
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 public class Post {
@@ -17,6 +18,9 @@ public class Post {
 
     @Column(name = "created_date")
     private Date createdDate;
+
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<Comment> comments;
 
     public Date getCreatedDate() {
         return createdDate;
@@ -70,6 +74,14 @@ public class Post {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public Set<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(Set<Comment> comments) {
+        this.comments = comments;
     }
 
     @Override

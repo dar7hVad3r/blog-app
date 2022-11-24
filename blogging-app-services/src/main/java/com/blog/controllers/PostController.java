@@ -1,6 +1,7 @@
 package com.blog.controllers;
 
 import com.blog.payload.ApiResponse;
+import com.blog.payload.PaginatedPostResponse;
 import com.blog.payload.PostDto;
 import com.blog.services.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +45,7 @@ public class PostController {
         return ResponseEntity.ok(posts);
     }
 
-    @GetMapping("/")
+    @GetMapping("/searchBy/")
     public ResponseEntity<List<PostDto>> getPostById(@RequestParam(name = "id", required = false) Integer postId,
                                                @RequestParam(name = "title", required = false) String title) {
         return ResponseEntity.ok(Optional.ofNullable(postId)
@@ -56,6 +57,13 @@ public class PostController {
                                 .map(List::of)
                                 .orElse(service.getAllPosts())
                 ));
+    }
+
+    @GetMapping("/")
+    public ResponseEntity<PaginatedPostResponse> getAllPosts(@RequestParam(name = "page", required = false, defaultValue = "0") Integer pageNumber,
+                                                             @RequestParam(name = "count", required = false, defaultValue = "5") Integer count) {
+
+        return ResponseEntity.ok(service.getAllPosts(pageNumber, count));
     }
 
     @DeleteMapping("/{postId}")

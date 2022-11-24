@@ -2,6 +2,7 @@ package com.blog.services.implementation;
 
 import com.blog.entities.Post;
 import com.blog.exceptions.ResourceNotFoundException;
+import com.blog.payload.PaginatedPostResponse;
 import com.blog.payload.PostDto;
 import com.blog.repositories.CategoryRepository;
 import com.blog.repositories.PostRepository;
@@ -9,6 +10,8 @@ import com.blog.repositories.UserRepository;
 import com.blog.services.PostService;
 import com.blog.utils.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
@@ -57,6 +60,19 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
+    public PaginatedPostResponse getAllPosts(Integer pageNumber, Integer count) {
+        Pageable pagination = PageRequest.of(pageNumber, count);
+        return new PaginatedPostResponse(
+                postRepository.findAll((PageRequest.of(pageNumber, count))).stream()
+                        .map(postMapper::postToDto)
+                        .toList(),
+                pagination.getPageNumber(),
+                pagination.getPageSize()
+
+        );
+    }
+
+    @Override
     public List<PostDto> getAllPostsByUser(Integer userId) {
         return postRepository.findByUser(
                 userRepository.findById(userId)
@@ -87,6 +103,7 @@ public class PostServiceImpl implements PostService {
                 .orElseThrow(() -> new ResourceNotFoundException("Post not found"));
     }
 
+    @Override
     public PostDto getPostByTitle(String title) {
         return postRepository.findByTitle(title)
                 .map(postMapper::postToDto)
